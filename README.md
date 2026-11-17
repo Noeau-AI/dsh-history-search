@@ -168,6 +168,22 @@ What it injects: a `HistoryHits` component appended to the children returned by 
 
 Patch mechanics: the component block is wrapped in `/* HSR:BEGIN */ … /* HSR:END */`, the mount point in `/* HSR:BEGIN-RENDER */ … /* HSR:END-RENDER */`; every write is backed up (default `%TEMP%\dsh-history-search-backup\`, override with `HSR_BACKUP_DIR`) and validated with `node --check` before it lands. **This patch edits an official file** — `node tools\install.mjs --uninstall` only removes the plugin wiring, use `--revert` for the patch. After an app upgrade overwrites the bundle, re-run `patch-workspace-search.mjs` (if an anchor is missing, `--revert` first).
 
+## Jump to the exact hit (0.1.4)
+
+Clicking a hit row opens the session **and puts the matched passage on screen** — not the bottom of the transcript.
+
+How it gets there, in order:
+
+1. **Wait for the right session.** The reading view keeps the previous transcript mounted for a moment, so the jump waits until `[data-conversation-session]` reports the session you clicked (up to 12 s). Without this gate it happily "found" the match inside the session you were already reading.
+2. **Anchor on the turn's own question.** From `/api/session` it picks the last `user` record at or before the hit's `seq` and looks for that sentence in the DOM. The `data-chat-turn` numbers are only window-relative, so the question text is the reliable anchor.
+3. **Land, expand, then refine.** It scrolls the turn into view, clicks the folded "thinking / tool" toggle when that turn is collapsed (`data-turn-process-hidden`), then searches that turn's subtree for the exact snippet.
+4. **Page back when needed.** If the turn is not mounted yet it clicks "load earlier" and waits for the mounted fingerprint (`rows:textLength`) to grow before scanning again.
+5. **Be honest when unreachable.** Content older than the loadable window (e.g. before a compaction checkpoint) cannot be rendered at all: the jump then moves the reader to the earliest loadable position and says so instead of pretending.
+
+Needle matching is whitespace-aware: passages are compared with collapsed spaces (word boundaries preserved), with a space-stripped variant only for needles ≥ 24 characters — that stopped the "`e the script then test it` becomes `ethescriptthentestit`" false positives.
+
+Fail toasts are explicit: exact hit / closest fragment / containing turn / "outside the loadable window".
+
 ## Jump to the exact hit (0.1.3)
 
 Clicking a hit used to open the session and leave you at the bottom of a very long transcript. Since 0.1.3 the click **lands on the matched text**:
