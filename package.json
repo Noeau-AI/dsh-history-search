@@ -1,0 +1,73 @@
+{
+  "name": "dsh-history-search",
+  "version": "0.1.2",
+  "description": "Full-history full-text search for DeepSeek Harness: decodes ~/.dsh/sessions/*/session.v4.jsonl.zstd frame by frame and runs CJK-friendly substring search across every workspace - sidebar panel plus inline hits inside the workspace search box.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "tools",
+    "test",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "screenshots.json",
+    "assets"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noeau-AI/dsh-history-search.git"
+  },
+  "homepage": "https://github.com/Noeau-AI/dsh-history-search#readme",
+  "bugs": {
+    "url": "https://github.com/Noeau-AI/dsh-history-search/issues"
+  },
+  "scripts": {
+    "test": "node test/frames-test.mjs && node test/host-test.mjs && node test/client-smoke.mjs && node test/injected-render.mjs",
+    "test:frames": "node test/frames-test.mjs",
+    "test:host": "node test/host-test.mjs",
+    "test:client": "node test/client-smoke.mjs",
+    "test:inline": "node test/injected-render.mjs",
+    "verify": "node tools/verify.mjs",
+    "install": "node tools/install.mjs",
+    "install:check": "node tools/install.mjs --check",
+    "uninstall": "node tools/install.mjs --uninstall",
+    "patch": "node tools/patch-workspace-search.mjs",
+    "unpatch": "node tools/patch-workspace-search.mjs --revert",
+    "patch:check": "node tools/patch-workspace-search.mjs --check"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "search",
+    "history",
+    "sessions",
+    "zstd",
+    "fts"
+  ],
+  "author": "Noeau-AI",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    },
+    "compatibility": {
+      "dsh": ">=0.2.0-rc.1 <0.3.0-0"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# DSH 全历史全文搜索：Host 半边（读 ~/.dsh/sessions/**/session.v4.jsonl.zstd，提供 /dsh-history-search/api/*）。
+# 浏览器半边由 package.json 的 dsh.client 声明加载。
+- insert:
+    - id: history-search
+      name: 'dsh-history-search'

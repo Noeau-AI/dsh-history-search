@@ -1,0 +1,8 @@
+node_modules/
+*.tgz
+*.log
+.DS_Store
+Thumbs.db
+*.tmp-*
+# local patch backups (tools/patch-workspace-search.mjs writes these next to the target by default)
+*.bak
