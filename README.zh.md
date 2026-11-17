@@ -163,6 +163,18 @@ node tools\patch-workspace-search.mjs --revert   # 剥回官方原样（字节�
 
 补丁细节：组件块用 `/* HSR:BEGIN */ … /* HSR:END */` 包住，挂载点用 `/* HSR:BEGIN-RENDER */ … /* HSR:END-RENDER */`；每次改动前备份到默认的 `%TEMP%\dsh-history-search-backup\`（可用 `HSR_BACKUP_DIR` 改），写入前先 `node --check`，不合法就不落盘。**这个补丁改的是官方文件**，`node tools\install.mjs --uninstall` 只管插件接线，剥补丁要用 `--revert`；应用升级把官方 bundle 覆盖后，重跑一次 `patch-workspace-search.mjs` 即可（若报锚点找不到，先 `--revert` 再重打）。
 
+## 点击跳到命中位置（0.1.3）
+
+以前点一条命中只会打开会话、停在很长的对话最底部。0.1.3 起会**落到命中那段文字上**：
+
+1. 先用 `uiWorkspace.openSession` 正常打开会话；
+2. 面板随即遍历对话正文的文本节点找这条命中的片段（优先最长候选、忽略空白，中文换行不影响命中）；
+3. 这段文字还在更早的分页里没渲染出来时，面板会点对话自己的「加载更早」按钮再重试 —— 最多 60 页、20 秒；
+4. 找到后把该行滚到视口中央、描边高亮 2.4 秒（`.hsr-land`），并弹 `已跳到命中位置`；
+5. 始终找不到（太早或从未渲染）就如实提示，不会假装跳过去了。
+
+对话包里的跳转能力（`loadThrough(seq)` + `scrollToTurn`）只从 conversation 槽位注入的 view 暴露，侧栏插件拿不到，所以这里改走 DOM：滚动容器 `[data-conversation-scroll]`，消息行 `data-chat-flow-key` / `data-chat-node-key`。`test/jump-test.mjs` 用假 DOM 钉住三条路径（首屏命中、翻两页后命中、始终不出现）。
+
 ## 列表滚动（0.1.2）
 
 面板整体是「顶部工具栏 + 可滚动结果区 + 底部页脚」的纵向 flex：`.hsr-root` 撑满主列并 `overflow:hidden`，`.hsr-scroll` 拿走剩余高度，`.hsr-body` 是唯一滚动容器（`overflow-y:auto` + `overscroll-behavior:contain`，`max-height:calc(100vh - 240px)` 兜底）。

@@ -168,6 +168,18 @@ What it injects: a `HistoryHits` component appended to the children returned by 
 
 Patch mechanics: the component block is wrapped in `/* HSR:BEGIN */ … /* HSR:END */`, the mount point in `/* HSR:BEGIN-RENDER */ … /* HSR:END-RENDER */`; every write is backed up (default `%TEMP%\dsh-history-search-backup\`, override with `HSR_BACKUP_DIR`) and validated with `node --check` before it lands. **This patch edits an official file** — `node tools\install.mjs --uninstall` only removes the plugin wiring, use `--revert` for the patch. After an app upgrade overwrites the bundle, re-run `patch-workspace-search.mjs` (if an anchor is missing, `--revert` first).
 
+## Jump to the exact hit (0.1.3)
+
+Clicking a hit used to open the session and leave you at the bottom of a very long transcript. Since 0.1.3 the click **lands on the matched text**:
+
+1. the session opens as usual (`uiWorkspace.openSession`);
+2. the panel then walks the chat transcript's text nodes looking for the hit snippet (longest candidate first, whitespace-insensitive, so CJK line wrapping does not matter);
+3. if the text is not rendered yet because it sits in an older page, the panel clicks the transcript's own `加载更早 / Load earlier` button and retries — up to 60 pages and 20 seconds;
+4. on success it scrolls the row to the vertical centre and outlines it for 2.4 s (`.hsr-land`), plus a toast `已跳到命中位置`;
+5. if the text never shows up (too old, or never rendered) it says so with a toast instead of silently pretending it jumped.
+
+The chat package keeps its jump machinery (`loadThrough(seq)` + `scrollToTurn`) inside the conversation slot's injected view, which no sidebar plugin can reach, so this walks the DOM instead: `[data-conversation-scroll]` for the scrollport and `data-chat-flow-key` / `data-chat-node-key` for the rows. `test/jump-test.mjs` pins the three paths (direct hit, hit behind two older pages, hit that never appears).
+
 ## List scrolling (0.1.2)
 
 The panel is a vertical flex stack: top toolbar + scrollable result area + footer. `.hsr-root` fills the main column and clips, `.hsr-scroll` takes the remaining height, `.hsr-body` is the only scroll container (`overflow-y:auto`, `overscroll-behavior:contain`, `max-height:calc(100vh - 240px)` as a fallback).
