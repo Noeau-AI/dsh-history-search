@@ -163,6 +163,10 @@ node tools\patch-workspace-search.mjs --revert   # 剥回官方原样（字节�
 
 补丁细节：组件块用 `/* HSR:BEGIN */ … /* HSR:END */` 包住，挂载点用 `/* HSR:BEGIN-RENDER */ … /* HSR:END-RENDER */`；每次改动前备份到默认的 `%TEMP%\dsh-history-search-backup\`（可用 `HSR_BACKUP_DIR` 改），写入前先 `node --check`，不合法就不落盘。**这个补丁改的是官方文件**，`node tools\install.mjs --uninstall` 只管插件接线，剥补丁要用 `--revert`；应用升级把官方 bundle 覆盖后，重跑一次 `patch-workspace-search.mjs` 即可（若报锚点找不到，先 `--revert` 再重打）。
 
+## 点击跳到命中位置（0.1.5）
+
+0.1.5 只改看得见的部分：落点高亮从「描边框」换成 **3px 外框 + 外发光脉冲，亮 4.2 秒**（原来 2.4 秒、在暗色主题里几乎看不出来）。定位逻辑与 0.1.4 完全一致。
+
 ## 点击跳到命中位置（0.1.4）
 
 点一条命中会打开会话，**并把命中的那段文字滚到眼前**，不是停在对话最底部。

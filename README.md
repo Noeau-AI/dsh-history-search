@@ -168,6 +168,10 @@ What it injects: a `HistoryHits` component appended to the children returned by 
 
 Patch mechanics: the component block is wrapped in `/* HSR:BEGIN */ … /* HSR:END */`, the mount point in `/* HSR:BEGIN-RENDER */ … /* HSR:END-RENDER */`; every write is backed up (default `%TEMP%\dsh-history-search-backup\`, override with `HSR_BACKUP_DIR`) and validated with `node --check` before it lands. **This patch edits an official file** — `node tools\install.mjs --uninstall` only removes the plugin wiring, use `--revert` for the patch. After an app upgrade overwrites the bundle, re-run `patch-workspace-search.mjs` (if an anchor is missing, `--revert` first).
 
+## Jump to the exact hit (0.1.5)
+
+0.1.5 touches only the visible part: the landed message now gets a **3px outline plus a glowing ring for 4.2 seconds** (it used to be 2.4 seconds, which was nearly invisible on the dark theme). Positioning logic is identical to 0.1.4.
+
 ## Jump to the exact hit (0.1.4)
 
 Clicking a hit row opens the session **and puts the matched passage on screen** — not the bottom of the transcript.
