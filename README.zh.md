@@ -18,6 +18,15 @@
 
 面板功能：260ms 防抖输入框、角色筛选（全部发言 / 只看我的输入 / 只看助手回复）、区分大小写、正则、含工具输出、含系统注入、按会话分组的结果（命中片段高亮）、点标题或点命中行打开对应会话、页脚显示归档体积与缓存数。
 
+## 发布在哪
+
+| 渠道 | 地址 |
+| --- | --- |
+| 源码仓库 | <https://github.com/Noeau-AI/dsh-history-search> |
+| Release tarball | <https://github.com/Noeau-AI/dsh-history-search/releases/tag/v0.1.2>（`dsh-history-search-0.1.2.tgz`，342 207 bytes，sha256 `1c4d76745483b8b60f1443ab00f5532581dae8ea8b1364ce941183de882bbafa`） |
+| dsh 插件市场（awesome-dsh-plugin.com） | 目录投稿 `data/plugins/Noeau-AI__dsh-history-search.yml` → PR [#16364](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/16364)；合并并重建站点后即可在市场页搜到 |
+| npm | 未发布 —— 配好 npm token 后在本目录 `npm publish` 即可（`dsh-history-search` 这个包名还空着） |
+
 ## 安装
 
 ### 方式一：从 GitHub 装（推荐）

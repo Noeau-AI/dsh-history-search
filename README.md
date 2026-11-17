@@ -23,6 +23,15 @@ Panel features: 260 ms debounced input, role filter (everyone / my prompts only 
 
 ![Scrolled results](assets/screenshot-2-scrolled.png)
 
+## Published
+
+| Channel | Where |
+| --- | --- |
+| Source | <https://github.com/Noeau-AI/dsh-history-search> |
+| Release tarball | <https://github.com/Noeau-AI/dsh-history-search/releases/tag/v0.1.2> (`dsh-history-search-0.1.2.tgz`, 342 207 bytes, sha256 `1c4d76745483b8b60f1443ab00f5532581dae8ea8b1364ce941183de882bbafa`) |
+| dsh plugin market (awesome-dsh-plugin.com) | catalog submission `data/plugins/Noeau-AI__dsh-history-search.yml` → PR [#16364](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/16364); the entry shows up on the market site once that PR merges and the site rebuilds |
+| npm | not published — `npm publish` from this checkout works once an npm token is configured (the name `dsh-history-search` is still free) |
+
 ## Install
 
 ### From GitHub (recommended)
