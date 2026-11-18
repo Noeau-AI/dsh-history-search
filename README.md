@@ -23,6 +23,14 @@ Panel features: 260 ms debounced input, role filter (everyone / my prompts only 
 
 ![Scrolled results](assets/screenshot-2-scrolled.png)
 
+## 0.1.6 is packaging only
+
+0.1.6 changes no behaviour. It puts two things inside the published tarball:
+
+- `market/entry.yml` — the catalog entry itself, versioned with the code, so the repository and the market cannot drift apart.
+- `tools/validate-entry.mjs` — the local shape check for that entry (the 0.1.5 entry had been written as a YAML sequence, which CI reported as `unknown field "0"`).
+- Both READMEs are back in sync with the artifact (the 0.1.5 release was cut before these two sections existed in the repository).
+
 ## Check the market entry before you submit it
 
 The catalog parser is strict, and its failure messages are opaque: submitting an entry written as a YAML sequence (`- url: ...`) instead of a mapping (`url: ...`) makes CI fail on `READMEs match data/plugins` with `unknown field "0"` and `"url" must be a https://github.com/owner/repo link`. That is exactly what happened to this plugin's first submission.
