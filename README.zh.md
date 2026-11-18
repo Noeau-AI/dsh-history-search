@@ -41,7 +41,7 @@ node tools/validate-entry.mjs            # 默认读 market/entry.yml
 | 渠道 | 地址 |
 | --- | --- |
 | 源码仓库 | <https://github.com/Noeau-AI/dsh-history-search> |
-| Release tarball | <https://github.com/Noeau-AI/dsh-history-search/releases/tag/v0.1.2>（`dsh-history-search-0.1.2.tgz`，342 207 bytes，sha256 `1c4d76745483b8b60f1443ab00f5532581dae8ea8b1364ce941183de882bbafa`） |
+| Release tarball | <https://github.com/Noeau-AI/dsh-history-search/releases/tag/v0.1.6>（`dsh-history-search-0.1.6.tgz`，360 183 bytes，sha256 `468e078ca6578378314413a10f4898966aa325e59ada45b0ccc2e0038cbd63f5`） |
 | dsh 插件市场（awesome-dsh-plugin.com） | 目录投稿 `data/plugins/Noeau-AI__dsh-history-search.yml` → PR [#16364](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/16364)；合并并重建站点后即可在市场页搜到 |
 | npm | 未发布 —— 配好 npm token 后在本目录 `npm publish` 即可（`dsh-history-search` 这个包名还空着） |
 

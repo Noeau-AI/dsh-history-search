@@ -46,7 +46,7 @@ node tools/validate-entry.mjs            # defaults to market/entry.yml
 | Channel | Where |
 | --- | --- |
 | Source | <https://github.com/Noeau-AI/dsh-history-search> |
-| Release tarball | <https://github.com/Noeau-AI/dsh-history-search/releases/tag/v0.1.2> (`dsh-history-search-0.1.2.tgz`, 342 207 bytes, sha256 `1c4d76745483b8b60f1443ab00f5532581dae8ea8b1364ce941183de882bbafa`) |
+| Release tarball | <https://github.com/Noeau-AI/dsh-history-search/releases/tag/v0.1.6> (`dsh-history-search-0.1.6.tgz`, 360 183 bytes, sha256 `468e078ca6578378314413a10f4898966aa325e59ada45b0ccc2e0038cbd63f5`) |
 | dsh plugin market (awesome-dsh-plugin.com) | catalog submission `data/plugins/Noeau-AI__dsh-history-search.yml` → PR [#16364](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/16364); the entry shows up on the market site once that PR merges and the site rebuilds |
 | npm | not published — `npm publish` from this checkout works once an npm token is configured (the name `dsh-history-search` is still free) |
 
