@@ -18,6 +18,16 @@
 
 面板功能：260ms 防抖输入框、角色筛选（全部发言 / 只看我的输入 / 只看助手回复）、区分大小写、正则、含工具输出、含系统注入、按会话分组的结果（命中片段高亮）、点标题或点命中行打开对应会话、页脚显示归档体积与缓存数。
 
+## 提交市场条目前先本地校验
+
+目录的解析器很严，报错又很含糊：把条目写成 YAML 序列（`- url: ...`）而不是映射（`url: ...`），CI 会在 `READMEs match data/plugins` 这一步失败，只给你 `unknown field "0"` 和 `"url" must be a https://github.com/owner/repo link` 两句。本插件第一次投稿踩的就是这个。
+
+`market/entry.yml` 是保存在本仓库里的目录条目，`node tools/validate-entry.mjs` 按目录规则检查它（映射形态、字段白名单、`owner/repo` 形式的 url、合法分类、以句号结尾的英文描述、GitHub 托管的位图图标、钉了 tag 的 Release tarball）。有形态错误时一秒内非零退出。
+
+```
+node tools/validate-entry.mjs            # 默认读 market/entry.yml
+```
+
 ## 发布在哪
 
 | 渠道 | 地址 |

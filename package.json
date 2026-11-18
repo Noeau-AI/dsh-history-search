@@ -18,7 +18,8 @@
     "README.zh.md",
     "LICENSE",
     "screenshots.json",
-    "assets"
+    "assets",
+    "market"
   ],
   "repository": {
     "type": "git",
@@ -41,7 +42,8 @@
     "uninstall": "node tools/install.mjs --uninstall",
     "patch": "node tools/patch-workspace-search.mjs",
     "unpatch": "node tools/patch-workspace-search.mjs --revert",
-    "patch:check": "node tools/patch-workspace-search.mjs --check"
+    "patch:check": "node tools/patch-workspace-search.mjs --check",
+    "validate:entry": "node tools/validate-entry.mjs market/entry.yml"
   },
   "keywords": [
     "dsh",

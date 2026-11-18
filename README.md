@@ -23,6 +23,16 @@ Panel features: 260 ms debounced input, role filter (everyone / my prompts only 
 
 ![Scrolled results](assets/screenshot-2-scrolled.png)
 
+## Check the market entry before you submit it
+
+The catalog parser is strict, and its failure messages are opaque: submitting an entry written as a YAML sequence (`- url: ...`) instead of a mapping (`url: ...`) makes CI fail on `READMEs match data/plugins` with `unknown field "0"` and `"url" must be a https://github.com/owner/repo link`. That is exactly what happened to this plugin's first submission.
+
+`market/entry.yml` is the catalog entry kept in this repository, and `node tools/validate-entry.mjs` checks it against the catalog's rules (mapping shape, allowed fields only, `owner/repo` url, a valid category, a period-terminated English description, a GitHub-hosted bitmap icon, a tag-pinned Release tarball). It exits non-zero on the first shape mistake, in under a second.
+
+```
+node tools/validate-entry.mjs            # defaults to market/entry.yml
+```
+
 ## Published
 
 | Channel | Where |
